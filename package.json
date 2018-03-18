@@ -1,7 +1,7 @@
 {
   "name": "dump-syms",
-  "version": "0.0.1",
-  "description": "Converts PDBs to breakpad symbols",
+  "version": "0.0.4",
+  "description": "Generate breakpad symbols from Windows PDB files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Tim Fish",

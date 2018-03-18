@@ -10,12 +10,16 @@ export function dumpSyms(glob: string, outPath?: string) {
 
   const dumpSymsExecutable = join(__dirname, '../bin/', 'dump_syms.exe');
 
-  console.log('[dump-syms] Searching:', glob);
+  console.log('Searching:', glob);
 
   const pdbPaths = sync(glob);
 
   if (outPath && pdbPaths.length) {
     ensureDirSync(outPath);
+  }
+
+  if (pdbPaths.length === 0) {
+    console.log('No PDBs with binaries found');
   }
 
   for (const pdbPath of pdbPaths) {
@@ -36,7 +40,7 @@ export function dumpSyms(glob: string, outPath?: string) {
     if (existsSync(dllBinary) || existsSync(exeBinary)) {
       const symData = execSync(`${dumpSymsExecutable} ${pdbPath}`);
       writeFileSync(symbolOutPath, symData);
-      console.log('[dump-syms] Symbol written to:', symbolOutPath);
+      console.log('Generated symbol file:', symbolOutPath);
     }
 
     if (copyNodeBinary) {
